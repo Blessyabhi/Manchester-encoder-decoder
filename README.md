@@ -26,7 +26,7 @@ This project demonstrates the **end-to-end ASIC design flow** — from RTL desig
 ## 🧩 System Architecture
 
 ### 🔸 Block Diagram
-```text
+
            ┌────────────────────────┐
            │       INPUT DATA        │
            └────────────┬────────────┘
