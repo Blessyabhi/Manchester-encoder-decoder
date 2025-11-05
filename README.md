@@ -91,9 +91,9 @@ It uses *edge detection* and *timing control logic* to recover the original data
 ![Simulation Waveform](https://github.com/Blessyabhi/Manchester-encoder-decoder/blob/main/waveform.jpg)
 
 ### 🔹 Layout View (90nm)
-| Layout (2D) | Layout (3D) |
-|:-------------:|:-------------:|
-| ![Layout2D]((https://github.com/Blessyabhi/Manchester-encoder-decoder/blob/main/layout.jpg)) | ![Layout3D]((https://github.com/Blessyabhi/Manchester-encoder-decoder/blob/main/layout_zoom.jpg)) |
+
+| ![Layout2D]((https://github.com/Blessyabhi/Manchester-encoder-decoder/blob/main/layout.jpg) 
+![Layout3D]((https://github.com/Blessyabhi/Manchester-encoder-decoder/blob/main/layout_zoom.jpg) 
 
 ---
 
