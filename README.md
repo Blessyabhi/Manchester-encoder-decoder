@@ -576,17 +576,17 @@ Result: ✅ PASS
 ### ⚙️ 90 nm Implementation
 
 #### 🧾 No Layout (Pre-Layout View)
-![90nm No Layout](path/to/schematic.jpg)
+![90nm No Layout]((https://github.com/Blessyabhi/Manchester-encoder-decoder/blob/main/schematic.jpg)
 
 *Pre-layout synthesized schematic representation of the 90 nm Manchester Encoder/Decoder prior to physical implementation.*
 
 #### 🗺️ 2D Layout View
-![90nm Layout 2D](path/to/layout_overall.jpg)
+![90nm Layout 2D](https://github.com/Blessyabhi/Manchester-encoder-decoder/blob/main/layout_zoom.jpg)
 
 *90 nm technology — 2D layout view demonstrating optimized density and advanced routing.*
 
 #### 🧱 3D Layout View
-![90nm Layout 3D](path/to/layout.jpg)
+![90nm Layout 3D](https://github.com/Blessyabhi/Manchester-encoder-decoder/blob/main/layout.jpg)
 
 *90 nm technology — 3D perspective view showcasing improved layout efficiency and compact design.*
 
