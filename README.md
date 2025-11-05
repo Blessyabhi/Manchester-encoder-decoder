@@ -49,12 +49,14 @@ This project demonstrates the **end-to-end ASIC design flow** — from RTL desig
            ┌────────────▼────────────┐
            │       OUTPUT DATA       │
            └─────────────────────────┘
-## ⚙️ Working Principle
+##  ⚙️ Working Principle
 
 The **Manchester Encoder–Decoder** operates on the concept of **bi-phase level encoding**, where each bit of digital data is represented by a voltage transition within a clock period.  
 This ensures **self-clocking capability** and **synchronization** between transmitter and receiver without requiring a separate clock signal.
 
-### Encoding Process
+---
+
+## 🔢 Encoding Process
 
 | Step | Description |
 |------|--------------|
@@ -63,7 +65,9 @@ This ensures **self-clocking capability** and **synchronization** between transm
 | 3 | Logic ‘0’ is represented by a **low-to-high** transition at the mid-bit. |
 | 4 | The encoded waveform thus carries both data and clock information. |
 
-### Decoding Process
+---
+
+## 🔁 Decoding Process
 
 | Step | Description |
 |------|--------------|
@@ -74,7 +78,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### Theory Behind Manchester Coding
+## 🧠 Theory Behind Manchester Coding
 
 | Concept | Explanation |
 |----------|--------------|
@@ -85,7 +89,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### Module Description
+## 🧩 Module Description
 
 | Module Name | Function |
 |--------------|-----------|
@@ -96,7 +100,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### ASIC Design Flow
+## 🧱 ASIC Design Flow
 
 | Step | Tool | Description |
 |------|------|-------------|
@@ -112,7 +116,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### Design Metrics Comparison
+## 📊 Design Metrics Comparison
 
 | Parameter | 90 nm | 180 nm |
 |------------|-------|--------|
@@ -124,7 +128,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### Power Analysis
+## 🔋 Power Analysis
 
 | Power Type | 90 nm (μW) | 180 nm (μW) |
 |-------------|-------------|-------------|
@@ -134,7 +138,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### Simulation and Verification
+## 🧪 Simulation and Verification
 
 | Test Case | Input | Expected Output | Result |
 |------------|--------|----------------|---------|
@@ -142,7 +146,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 | Test 2 | 11001100 | Decoded equals input | ✅ PASS |
 | Test 3 | Random stream | 100% functional accuracy | ✅ PASS |
 
-#### Verification Summary
+### Verification Summary
 
 | Type | Status | Description |
 |------|---------|-------------|
@@ -154,7 +158,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### Layout Results
+## 🧱 Layout Results
 
 | Technology | Status | Description |
 |-------------|---------|-------------|
@@ -164,7 +168,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### Tools and Technologies Used
+## 🧰 Tools and Technologies Used
 
 | Category | Tool / Software |
 |-----------|----------------|
@@ -177,7 +181,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### Execution Steps
+## 🚀 Execution Steps
 
 | Step | Command / Action |
 |------|-------------------|
@@ -189,7 +193,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### Academic Project Details
+## 🎓 Academic Project Details
 
 | Field | Description |
 |--------|-------------|
@@ -202,7 +206,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### Learning Outcomes
+## 🎯 Learning Outcomes
 
 | Aspect | Description |
 |---------|-------------|
@@ -215,7 +219,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### References
+## 📚 References
 
 | No. | Source |
 |-----|--------|
@@ -226,7 +230,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### Developer Information
+## 👩‍💻 Developer Information
 
 | Field | Details |
 |-------|----------|
@@ -239,7 +243,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### License
+## 🪪 License
 
 | Type | Description |
 |------|-------------|
@@ -248,7 +252,7 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ---
 
-### Acknowledgments
+## 🙏 Acknowledgments
 
 | Contributor | Role |
 |--------------|------|
@@ -261,4 +265,3 @@ This ensures **self-clocking capability** and **synchronization** between transm
 
 ⭐ *If you found this project helpful, give it a star!*
 
-⭐ *If you found this project helpful, don’t forget to star the repository!*
