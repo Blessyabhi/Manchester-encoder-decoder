@@ -436,7 +436,7 @@ This section presents comprehensive performance, area, and power metrics for bot
 
 ### RTL Simulation Waveforms
 
-![Simulation Waveforms](images/simulation_waveforms.png)
+![Simulation Waveforms](https://github.com/Blessyabhi/Manchester-encoder-decoder/blob/main/waveform.jpg)
 
 *Functional verification demonstrating correct Manchester encoding/decoding with timing-accurate transitions. The waveform shows data_in, manchester_out (encoded signal with mid-bit transitions), and data_out (successfully decoded data).*
 
@@ -560,19 +560,10 @@ Result: ✅ PASS
 ### Gate-Level Schematic
 
 #### System-Level Block Diagram
-![System Schematic](images/system_schematic.png)
+![System Schematic](images/schematic.jpg)
 
 *Top-level schematic showing manchester_encoder and manchester_decoder modules with interconnections. The design demonstrates the complete encode-transmit-decode flow with CLK100MHZ input, SW[0:0] data input, and LED[0:0] and LED_ENC[1:1] outputs.*
 
-#### 180 nm Technology
-![180nm Gate-Level Schematic](images/schematic_180nm.png)
-
-*Post-synthesis gate-level schematic for 180 nm CMOS technology*
-
-#### 90 nm Technology
-![90nm Gate-Level Schematic](images/schematic_90nm.png)
-
-*Post-synthesis gate-level schematic for 90 nm CMOS technology*
 
 ---
 
@@ -585,17 +576,17 @@ Result: ✅ PASS
 ### ⚙️ 90 nm Implementation
 
 #### 🧾 No Layout (Pre-Layout View)
-![90nm No Layout](path/to/schematic.png)
+![90nm No Layout](path/to/schematic.jpg)
 
 *Pre-layout synthesized schematic representation of the 90 nm Manchester Encoder/Decoder prior to physical implementation.*
 
 #### 🗺️ 2D Layout View
-![90nm Layout 2D](path/to/layout_overall.png)
+![90nm Layout 2D](path/to/layout_overall.jpg)
 
 *90 nm technology — 2D layout view demonstrating optimized density and advanced routing.*
 
 #### 🧱 3D Layout View
-![90nm Layout 3D](path/to/layout.png)
+![90nm Layout 3D](path/to/layout.jpg)
 
 *90 nm technology — 3D perspective view showcasing improved layout efficiency and compact design.*
 
@@ -857,9 +848,8 @@ SOFTWARE.
 
 **[Your Name]**
 
-- 📧 **Email**: [your.email@example.com](mailto:your.email@example.com)
-- 💼 **LinkedIn**: [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
-- 🐱 **GitHub**: [github.com/yourusername](https://github.com/yourusername)
+- 📧 **Email**: [123ec0055@iiitk.ac.in]
+- 🐱 **GitHub**: [github.com/abhigna](https://github.com/abhigna)
 - 🎓 **Institution**: Indian Institute of Information Technology Design and Manufacturing, Kurnool
 
 For technical inquiries, collaboration opportunities, or project-related questions, please feel free to reach out through any of the above channels.
@@ -882,8 +872,8 @@ Special thanks to all contributors who have provided feedback and suggestions fo
 
 ## 👨‍🎓 About the Developer
 
-**[Your Name]**  
-Roll No.: [Your Roll Number]
+**[Abhigna]**  
+Roll No.: [123EC0055]
 
 Department of Electronics and Communication Engineering  
 Integrated Bachelor and Master of Technology
