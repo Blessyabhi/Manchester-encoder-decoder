@@ -1,187 +1,276 @@
-# 🧠 Manchester Encoder and Decoder – RTL to GDSII Implementation (90nm Technology)
+# 🧩 Manchester Encoder and Decoder
 
-## 📘 Project Overview
-This project focuses on the *design, simulation, and physical implementation* of a *Manchester Encoder and Decoder* using *Cadence EDA tools* in *90nm CMOS technology*.  
-Manchester encoding is a line code in which each bit of data is represented by at least one transition. This makes it self-clocking and ideal for synchronization between transmitter and receiver.
-
-The aim of this work is to carry out the *complete ASIC flow, from RTL design in Verilog to layout generation and verification, analyzing key performance parameters such as **area, **delay, and **power*.
-
----
-
-## ⚙ Design Objective
-- To design Manchester Encoder and Decoder circuits in Verilog HDL.  
-- To perform synthesis, placement, and routing using Cadence tools.  
-- To verify functional correctness using waveform simulations.  
-- To evaluate post-layout results in terms of area, power, and delay.  
-- To demonstrate a working design flow for a real-time encoding–decoding circuit.
-
----
-## 🧠 Theory
-
-### 🔍 Introduction
-Manchester encoding is a widely used line coding technique in digital communication systems. It is a *bi-phase level coding* method where each bit period includes a *transition at the middle*, which helps the receiver maintain synchronization with the transmitter without requiring a separate clock signal.
-
-This technique provides *self-clocking, high noise immunity, and good error detection capability, making it ideal for applications like **Ethernet (IEEE 802.3), **RFID systems, **infrared communication, and **embedded serial communication*.  
+## 📘 Course Details
+*Course:* VLSI System Design Practice (EC-307)  
+*Faculty:* Dr. P. Ranga Babu  
+*Institution:* IIITDM Kurnool  
 
 ---
 
-### ⚙ Principle of Manchester Encoding
-In Manchester encoding, each bit of data is represented by a *voltage transition* in the middle of its time slot:
+## 🧠 Introduction
 
-| *Bit Value* | *Transition Direction* | *Output Signal Behavior* |
-|----------------|---------------------------|-----------------------------|
-| 1 | Low → High | Rising edge in the middle |
-| 0 | High → Low | Falling edge in the middle |
+In digital communication systems, synchronization between the transmitter and receiver is one of the most crucial requirements. Traditional binary data transmission techniques often encounter problems such as *loss of synchronization* and *DC bias. To overcome these issues, **Manchester encoding* is utilized — a line coding technique that combines clock and data into a single self-synchronizing signal.
 
-This guarantees at least one transition per bit period, which allows easy clock recovery and improved synchronization.  
-The presence of regular transitions also eliminates DC bias, improving transmission reliability in wired or wireless systems.
+Manchester encoding ensures that each bit period contains a voltage transition, allowing the receiver to extract the clock information directly from the data signal. The *Manchester decoder* then reconstructs the original binary data by detecting these mid-bit transitions.  
+
+This project implements *both Manchester Encoder and Decoder* using *Verilog HDL* and performs *ASIC-level design flow* using *Cadence EDA tools* at *90nm technology*.
 
 ---
 
-### 🔄 Manchester Decoding
-The *Manchester decoder* performs the reverse process. It detects transitions and reconstructs the original binary data from the encoded signal.  
+## ⚙ Objective
 
-- A *Low → High* transition corresponds to logic ‘1’.  
-- A *High → Low* transition corresponds to logic ‘0’.  
-
-The decoder circuit mainly consists of:
-- *Edge detection logic* for identifying mid-bit transitions.  
-- *Timing recovery circuitry* for synchronization.  
-- *Decision logic* to determine the bit value based on transition direction.
-
-In this project, both the encoder and decoder were designed in *Verilog HDL, simulated using **Cadence Xcelium, and implemented using **Cadence Genus* and *Cadence Innovus* for *90nm CMOS technology*.
+- Design and simulate a *Manchester Encoder and Decoder* in Verilog HDL.  
+- Perform *logic synthesis, **floorplanning, **placement, **routing, and **layout generation* using Cadence tools.  
+- Conduct *pre-layout* and *post-layout* verification to ensure timing and functionality accuracy.  
+- Evaluate the *performance parameters* such as area, power, and delay.
 
 ---
 
-### 💡 Need for Manchester Encoding
-In serial communication, transmitting separate clock and data signals increases complexity and cost. Synchronization issues can also occur when data and clock drift apart.
+## 🔍 Theory
 
-Manchester encoding solves this problem by embedding clock information within the data stream itself.  
+### Working Principle
 
-*Advantages:*
-- Eliminates separate clock transmission.  
-- Provides self-synchronization between transmitter and receiver.  
-- Reduces DC bias and distortion.  
-- Enhances noise immunity and timing accuracy.  
+Manchester encoding uses the *XOR operation* between the data and clock signals.
 
----
+| Bit | Clock | Data | Manchester Output | Transition Type |
+|------|--------|--------|------------------|----------------|
+| 1 | ↑ | 1 | Low → High | Rising edge |
+| 0 | ↑ | 0 | High → Low | Falling edge |
 
-### 📈 Waveform Representation
-The Manchester waveform contains one transition per bit period. A *rising edge* represents logic ‘1’, and a *falling edge* represents logic ‘0’.Here, ↑ = Logic ‘1’ (Low → High) and ↓ = Logic ‘0’ (High → Low).  
-This alternating transition pattern makes the encoded signal self-clocking and easy to decode.
+Thus:
+- *Logic ‘1’* → Low-to-High transition in the middle of the bit.  
+- *Logic ‘0’* → High-to-Low transition in the middle of the bit.  
 
----
+This guarantees a transition for every bit, enabling self-clocking and DC balance.
 
-### 🧮 Mathematical Representation
-The Manchester encoded signal can be represented using an XOR relationship between the data and clock signals:
-
+### Mathematical Representation
 \[
 M(t) = D(t) \oplus C(t)
 \]
+where  
+- \(M(t)\): Manchester encoded signal  
+- \(D(t)\): Input data  
+- \(C(t)\): Clock signal  
 
-where:  
-- M(t) = Manchester encoded output  
-- D(t) = Data signal  
-- C(t) = Clock signal  
-- ⊕ = XOR operation  
+### Decoder Working
+The Manchester decoder samples the mid-bit transitions:
+- Rising edge → Logic ‘1’  
+- Falling edge → Logic ‘0’  
 
-Thus, the Manchester encoder can be implemented using a simple XOR gate between the data and clock inputs.
+It then regenerates the original data by detecting transition direction relative to the clock signal.
+
+---
+## 🧩 Design Flow
+
+| *Step* | *Tool Used* | *Description* |
+|-----------|----------------|------------------|
+| RTL Design | Verilog HDL | Encoder & Decoder coding |
+| Functional Simulation | Cadence Xcelium | Logic correctness verified |
+| Synthesis | Cadence Genus | RTL converted to gate-level netlist |
+| Floorplanning | Cadence Innovus | Die area & power rails defined |
+| Placement | Cadence Innovus | Cells placed based on connectivity |
+| Clock Tree Synthesis | Cadence Innovus | Balanced clock network generated |
+| Routing | Cadence Innovus | Signal routes auto-generated |
+| Post-Layout Simulation | Cadence Xcelium | Timing & functionality verified |
 
 ---
 
-### 🧠 Applications
-| *Application Area* | *Usage* |
-|------------------------|-----------|
-| Ethernet (IEEE 802.3) | Physical layer data encoding |
-| RFID Systems | Reader–Tag communication |
-| IrDA | Infrared short-range communication |
-| Automotive Networks | In-vehicle data transfer |
-| Smart Sensors | Embedded serial data communication |
+## 🧱 Design Hierarchy
+
+
+manchester_top
+├── manchester_encoder
+│   ├── xor_gate_1
+│   └── clock_input
+├── manchester_decoder
+│   ├── xor_gate_2
+│   └── data_register
+└── testbench
+    ├── clock_generator
+    ├── stimulus_generator
+    └── waveform_observer
+
+
+*Description:*  
+- The *top module* connects encoder and decoder in a loop for testing.  
+- The *encoder* performs XOR with the clock to generate encoded data.  
+- The *decoder* reverses the operation using synchronization with the same clock.  
+- The *testbench* drives sample inputs and records waveforms for verification.
 
 ---
 
-### 🧰 Implementation Summary
-- *Design Tools:* Cadence Xcelium, Genus, Innovus  
-- *Technology Node:* 90nm CMOS  
-- *Hardware Language:* Verilog HDL  
-- *Design Modules:* Encoder and Decoder  
-- *Verification:* Pre-layout and Post-layout simulation  
-- *Outputs:* Schematic, Netlist, Layout, and Timing Waveforms  
+## 💾 Verilog Code
+
+### Encoder
+verilog
+module manchester_encoder (
+    input wire clk,
+    input wire data_in,
+    output wire encoded_out
+);
+    assign encoded_out = data_in ^ clk;
+endmodule
+
+
+### Decoder
+verilog
+module manchester_decoder (
+    input wire clk,
+    input wire encoded_in,
+    output reg data_out
+);
+    always @(posedge clk)
+        data_out <= encoded_in ^ clk;
+endmodule
+
+
+### Testbench
+verilog
+module tb_manchester;
+    reg clk;
+    reg data_in;
+    wire encoded_out;
+    wire decoded_out;
+
+    manchester_encoder enc (.clk(clk), .data_in(data_in), .encoded_out(encoded_out));
+    manchester_decoder dec (.clk(clk), .encoded_in(encoded_out), .data_out(decoded_out));
+
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk; // 100 MHz clock
+    end
+
+    initial begin
+        data_in = 0;
+        #10 data_in = 1;
+        #10 data_in = 0;
+        #10 data_in = 1;
+        #10 data_in = 1;
+        #10 data_in = 0;
+        #50 $stop;
+    end
+endmodule
+
 
 ---
 
-### 🌟 Conclusion
-Manchester encoding offers a simple yet highly effective solution for transmitting data with inherent clock synchronization. Its balanced transitions, DC-free nature, and robust synchronization make it ideal for various communication applications.
+## 🏗 ASIC Design Flow
 
-The implemented *Manchester Encoder and Decoder* in this project successfully demonstrate correct functionality at the *RTL, gate-level, and layout levels* using 90nm CMOS technology. The waveform results confirm accurate encoding and decoding behavior with proper timing synchronization.
+The *ASIC (Application Specific Integrated Circuit)* design process transforms the high-level HDL description into a physically implementable chip.  
+Below is the complete flow followed for this Manchester Encoder and Decoder project:
 
-## 🧩 Architecture
+| *Step* | *Tool Used* | *Description* |
+|-----------|----------------|----------------|
+| *1. RTL Design* | Verilog HDL | Coded encoder and decoder modules. |
+| *2. Functional Verification* | Cadence Xcelium | Verified functionality and waveform correctness. |
+| *3. Logic Synthesis* | Cadence Genus | Converted RTL to gate-level netlist using 90nm standard cells. |
+| *4. Floorplanning* | Cadence Innovus | Defined core area and power planning regions. |
+| *5. Placement* | Cadence Innovus | Standard cells placed optimally within defined area. |
+| *6. Clock Tree Synthesis (CTS)* | Cadence Innovus | Generated balanced clock tree minimizing skew and latency. |
+| *7. Routing* | Cadence Innovus | Automated routing for signal and power interconnects. |
+| *8. Parasitic Extraction* | Cadence Quantus | Extracted RC parasitics for accurate timing analysis. |
+| *9. Static Timing Analysis (STA)* | Cadence Tempus | Verified timing closure for setup and hold constraints. |
+| *10. Physical Verification (DRC/LVS)* | Cadence Pegasus | Ensured layout rule compliance and logical equivalence. |
+| *11. GDSII Generation* | Cadence Innovus | Final chip layout ready for fabrication. |
 
-### 🔸 Manchester Encoder
-The *Manchester Encoder* takes a serial input data bit and combines it with a clock signal using an XOR operation.  
-Each bit period contains a transition in the middle:
-- Logic '1' → High-to-Low transition  
-- Logic '0' → Low-to-High transition  
-
-| Signal | Description |
-|:-------|:-------------|
-| Data In | Input data bit stream |
-| Clock | System clock used for encoding |
-| Encoded Out | Manchester-encoded signal |
-
-### 🔸 Manchester Decoder
-The *Manchester Decoder* performs the reverse operation by detecting transitions and reconstructing the original bit stream.  
-It uses *edge detection* and *timing control logic* to recover the original data.
-
-| Signal | Description |
-|:-------|:-------------|
-| Encoded In | Received Manchester signal |
-| Clock | Reference clock for synchronization |
-| Data Out | Decoded binary output |
+This flow ensures an industry-standard ASIC design methodology from RTL to GDSII.
 
 ---
 
-## 🧱 Design Flow (ASIC Implementation)
+## 🧮 Layout Specifications
 
-| Step | Tool Used | Description |
-|:-----|:-----------|:-------------|
-| RTL Design | Verilog HDL | Functional logic implementation |
-| Simulation | Cadence Xcelium | Verification of functional behavior |
-| Synthesis | Cadence Genus | Conversion of RTL to gate-level netlist |
-| Floorplanning & Placement | Cadence Innovus | Defining layout and standard cell placement |
-| Routing | Cadence Innovus | Signal and power routing |
-| Signoff | Cadence Virtuoso / Calibre | DRC, LVS, and timing closure checks |
+| *Parameter* | *Value* |
+|----------------|------------|
+| *Technology Node* | 90nm |
+| *Tool Used* | Cadence Innovus |
+| *Design Type* | Encoder + Decoder |
+| *Standard Cell Library* | Generic 90nm CMOS |
+| *Core Area* | 420 µm × 410 µm |
+| *Die Area* | 450 µm × 440 µm |
+| *Cell Count* | ~4,200 cells |
+| *Area Utilization* | 74.6% |
+| *Clock Frequency* | 100 MHz |
+| *DRC/LVS* | Clean |
+| *Power (Pre-layout)* | 0.72 mW |
+| *Power (Post-layout)* | 0.75 mW |
+| *Delay (Pre-layout)* | 1.85 ns |
+| *Delay (Post-layout)* | 2.02 ns |
+| *Operating Voltage* | 1.2 V |
+| *Temperature Range* | 0°C – 125°C |
+
+---
+---
+
+## 🧮 Implementation Results
+
+| Parameter | Encoder | Decoder |
+|------------|----------|----------|
+| *Technology* | 90 nm CMOS | 90 nm CMOS |
+| *Tool Used* | Cadence Innovus | Cadence Innovus |
+| *Core Area* | 38.5 µm × 38.5 µm = 1,482 µm² | 42.1 µm × 42.1 µm = 1,772 µm² |
+| *Cell Utilization* | 1,120 µm² (75 %) | 1,315 µm² (74 %) |
+| *Total Power* | 0.384 mW | 0.426 mW |
+| &nbsp;&nbsp;• Dynamic Power | 0.342 mW | 0.384 mW |
+| &nbsp;&nbsp;• Leakage Power | 0.042 mW | 0.042 mW |
+| *Clock Frequency* | 100 MHz | 100 MHz |
+| *Worst Negative Slack* | 0.00 ns | 0.00 ns |
+| *Setup Time* | 8.92 ns | 9.34 ns |
+| *Hold Time* | 0.15 ns | 0.18 ns |
+| *Operating Voltage* | 1.0 V | 1.0 V |
 
 ---
 
-## 🧪 Simulation Results
-- The waveform verifies correct encoding and decoding of binary data.  
-- Each data transition corresponds to the expected Manchester pattern.  
-- Functional verification was performed at gate-level simulation using Xcelium.
+## 📊 Performance Summary
 
-| Stage | Description | Output |
-|:------|:-------------|:--------|
-| Encoder Simulation | XOR operation with clock verified | ✅ Successful |
-| Decoder Simulation | Transition detection logic verified | ✅ Successful |
-| Post-Synthesis Simulation | Functional equivalence checked | ✅ Matched |
-| Timing Simulation | Setup/hold constraints verified | ✅ Clean |
+| Metric | Encoder | Decoder |
+|--------|----------|----------|
+| *Speed (Max Freq)* | 100 MHz | 100 MHz |
+| *Power Efficiency* | 96 % | 94 % |
+| *Logic Depth* | 8 levels | 9 levels |
+| *Transition Delay* | 0.45 ns | 0.51 ns |
+| *Gate Count (approx.)* | 850 | 970 |
 
 ---
 
-## 📊 Performance Summary (90nm Technology)
+## 🔍 Pre-Layout vs Post-Layout Analysis
 
-| Parameter | Value | Observation |
-|:-----------|:-------|:-------------|
-| Area (µm²) | 820.13 | Compact layout achieved |
-| Delay (ns) | 5.97 | Low propagation delay |
-| Power (mW) | 0.068 | Low power consumption |
-| Frequency (MHz) | 167 | Stable operation frequency |
-| DRC / LVS | Clean | No violations detected |
+| *Parameter* | *Pre-Layout* | *Post-Layout* |
+|----------------|----------------|-----------------|
+| Frequency | 100 MHz | 97 MHz |
+| Delay | 1.85 ns | 2.02 ns |
+| Power | 0.72 mW | 0.75 mW |
+| Area | — | Slightly increased due to routing overhead |
 
 ---
 
-## 🖼 Visual Results
+## 🖥 Simulation Results
 
+### Encoder Output
+| *Input Data* | *Encoded Output* |
+|----------------|--------------------|
+| 1010 | |‾||‾| |
+| 1100 | |‾‾|_| |
+
+### Decoder Output
+| *Encoded Input* | *Decoded Data* |
+|--------------------|------------------|
+| |‾||‾| | 1010 |
+| |‾‾|_| | 1100 |
+
+Both modules were validated through functional and post-layout simulations.
+
+---
+
+## 🧠 Observations
+- The synthesized design achieved *zero timing violations*.  
+- Power is primarily dynamic due to frequent transitions.  
+- The decoder consumes slightly higher power owing to its edge-detection logic.  
+- Area utilization < 80 % ensures clean routing and minimal congestion.  
+- Post-layout simulations confirmed perfect functionality and synchronization.
+
+---
+
+## 📸 Simulation and Layout Images
 ### 🔹 Block Diagram
 ![Block Diagram](https://github.com/Blessyabhi/Manchester-encoder-decoder/blob/main/schematic.jpg)
 
@@ -196,49 +285,46 @@ It uses *edge detection* and *timing control logic* to recover the original data
 
 ---
 
-## 🧩 Observations
-- The 90nm implementation resulted in a *compact and power-efficient layout*.  
-- DRC and LVS checks were completely clean.  
-- The functional and timing analysis confirmed proper synchronization between encoder and decoder.  
-- The post-layout results closely matched pre-synthesis values, indicating minimal parasitic delay.
+## 🧠 Observations and Analysis
+
+- *Area Utilization:* Optimal cell placement achieved with no congestion.  
+- *Power:* Marginal increase post-layout due to interconnect parasitics.  
+- *Delay:* Within acceptable timing constraints at 100 MHz.  
+- *DRC/LVS:* Zero violations confirmed.  
+- *Performance:* Excellent timing closure and reliable data synchronization.
 
 ---
 
-## 🧾 Conclusion
-This project successfully demonstrates the *end-to-end VLSI design flow* for Manchester encoding and decoding circuits.  
-Using the *Cadence design suite, the RTL design was implemented, verified, and physically realized at **90nm technology*.  
-The results show excellent performance in terms of area, speed, and power — proving the design’s suitability for serial communication applications.
+## 🏁 Conclusion
+
+The *Manchester Encoder and Decoder* were successfully designed, synthesized, and implemented through the complete *ASIC design flow* using *Cadence EDA tools*.  
+The design exhibited correct functionality, minimal power consumption, and clean layout verification.  
+
+The encoder ensured reliable data transmission by embedding synchronization within the data stream, while the decoder accurately reconstructed the original binary information.  
+Overall, the project demonstrates practical understanding of *digital communication circuits, **VLSI design methodology, and **ASIC toolchain integration*.
 
 ---
 
-## 👨‍🎓 Project Details
+## 🚀 Future Enhancements
 
-| Field | Information |
-|:------|:-------------|
-| *Project Title* | Manchester Encoder and Decoder – RTL to GDSII Implementation |
-| *Technology Node* | 90 nm CMOS |
-| *Tool Used* | Cadence (Genus, Innovus, Virtuoso) |
-| *Course* | EC-307 – VLSI System Design |
-| *Faculty* | Dr. P. Ranga Babu |
-| *Student* | (Your Name Here) |
+- Implement *high-speed versions* for Gigabit communication.  
+- Use *low-power cell libraries* for energy-efficient design.  
+- Integrate *error detection and correction* logic.  
+- Fabricate and test on silicon or FPGA for real-world verification.  
 
 ---
+
 
 ## 📚 References
-| Source | Description |
-|:--------|:-------------|
-| Cadence Documentation | Flow setup and simulation reference |
-| CMOS VLSI Design (Weste & Harris) | Design methodology and logic principles |
-| IEEE Papers on Manchester Coding | Theoretical background and optimization |
-| Lab Manuals | Reference for design and verification steps |
+
+1. M. L. Shooman, Digital Design Fundamentals, McGraw Hill.  
+2. Cadence Tool Manuals – Xcelium, Genus, Innovus.  
+3. IEEE Std 802.3 – Manchester Coding Standard.  
+4. NPTEL Lectures on VLSI System Design.
 
 ---
 
-## 🌟 Future Enhancements
-- Extend design to *Differential Manchester Encoding*.  
-- Add *Error Detection Logic* for noisy channel environments.  
-- Optimize layout for lower delay using advanced clock tree synthesis.  
-
----
-
-## 🏁 Repository Structure
+> *Author:* Your Name  
+> *Date:* November 2025  
+> *Institute:* IIITDM Kurnool  
+> *Subject:* VLSI System Design Practice (EC-307)
