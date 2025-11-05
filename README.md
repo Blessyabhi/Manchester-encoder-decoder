@@ -51,78 +51,80 @@ This project demonstrates the **end-to-end ASIC design flow** — from RTL desig
            └─────────────────────────┘
 ## ⚙️ Working Principle
 
-The Manchester Encoder–Decoder works on the principle of **bi-phase level encoding**, where each bit of data is represented by a transition in the signal within one clock period.  
-This ensures **self-clocking** and **synchronization** between the transmitter and receiver.
+The **Manchester Encoder–Decoder** operates on the concept of **bi-phase level encoding**, where each bit of digital data is represented by a voltage transition within a clock period.  
+This ensures **self-clocking capability** and **synchronization** between transmitter and receiver without requiring a separate clock signal.
 
-### ➤ Encoding Process
+### Encoding Process
+
 | Step | Description |
 |------|--------------|
-| 1 | The input data bit and the clock signal are XORed to generate the Manchester code. |
-| 2 | For a logic ‘1’, the signal transitions from HIGH → LOW in the middle of the clock cycle. |
-| 3 | For a logic ‘0’, the signal transitions from LOW → HIGH in the middle of the clock cycle. |
-| 4 | The resulting waveform carries both data and clock information. |
+| 1 | The input data bit is XORed with the clock signal to produce the Manchester code. |
+| 2 | Logic ‘1’ is represented by a **high-to-low** transition at the mid-bit. |
+| 3 | Logic ‘0’ is represented by a **low-to-high** transition at the mid-bit. |
+| 4 | The encoded waveform thus carries both data and clock information. |
 
-### ➤ Decoding Process
+### Decoding Process
+
 | Step | Description |
 |------|--------------|
-| 1 | The Manchester signal is received and sampled at mid-bit intervals. |
-| 2 | Edge transitions (high-to-low or low-to-high) are detected. |
-| 3 | The direction of transition determines the logic value. |
-| 4 | The recovered data is output as a binary stream. |
+| 1 | The encoded signal is received and sampled at mid-bit intervals. |
+| 2 | The transition direction (rising/falling) is detected. |
+| 3 | A **low-to-high** transition corresponds to logic ‘0’, while a **high-to-low** transition corresponds to logic ‘1’. |
+| 4 | The binary sequence is reconstructed at the output. |
 
 ---
 
-## 🧠 Theory Behind Manchester Coding
+### Theory Behind Manchester Coding
 
-| Concept | Formula / Explanation |
-|----------|------------------------|
+| Concept | Explanation |
+|----------|--------------|
 | **Encoding Rule** | \( M(t) = D(t) \oplus CLK(t) \) |
-| **Data Recovery** | Based on detecting transitions and polarity within each clock cycle. |
-| **Advantages** | Eliminates DC bias, self-synchronizing, high noise immunity. |
-| **Applications** | Ethernet, RFID communication, infrared transmission systems. |
+| **Data Recovery** | Achieved by detecting transition direction and timing. |
+| **Advantages** | Self-clocking, DC-balanced, high noise immunity. |
+| **Applications** | Ethernet, RFID, IR communication, serial data. |
 
 ---
 
-## 📐 Module Description
+### Module Description
 
 | Module Name | Function |
 |--------------|-----------|
-| `manchester_encoder.v` | Converts input binary data into Manchester-coded signal. |
-| `manchester_decoder.v` | Reconstructs the original binary data from the Manchester waveform. |
-| `clock_generator.v` | Generates reference clock for synchronization between encoder and decoder. |
-| `top_manchester.v` | Top-level module integrating encoder, decoder, and clock modules. |
+| `manchester_encoder.v` | Converts binary data into Manchester encoded signal. |
+| `manchester_decoder.v` | Recovers original bits from received waveform. |
+| `clock_generator.v` | Generates clock reference. |
+| `top_manchester.v` | Integrates all submodules for end-to-end operation. |
 
 ---
 
-## 🧩 ASIC Design Flow
+### ASIC Design Flow
 
 | Step | Tool | Description |
 |------|------|-------------|
-| RTL Coding | Verilog HDL | Functional design entry and module development. |
-| Simulation | Xilinx Vivado / ModelSim | Verification of logic and functionality using testbench. |
-| Synthesis | Cadence Genus | Gate-level optimization and technology mapping. |
-| Floorplanning | Cadence Innovus | Defines chip core area and pin locations. |
-| Placement | Cadence Innovus | Arranges standard cells in layout area. |
-| Clock Tree Synthesis | Cadence Innovus | Distributes the clock network to reduce skew. |
-| Routing | Cadence Innovus | Connects placed cells with metal interconnects. |
-| Signoff | Assura / Innovus | Performs DRC, LVS, and STA verification. |
-| GDSII Export | Innovus | Generates final mask-level layout for fabrication. |
+| RTL Design | Verilog HDL | HDL description of encoder & decoder. |
+| Functional Simulation | Vivado / ModelSim | Verify correctness with testbench. |
+| Logic Synthesis | Cadence Genus | Converts RTL into gate-level netlist. |
+| Floorplanning | Cadence Innovus | Defines chip core, I/O, and power grid. |
+| Placement | Cadence Innovus | Arranges standard cells. |
+| Clock Tree Synthesis | Cadence Innovus | Balances clock skew. |
+| Routing | Cadence Innovus | Connects placed cells. |
+| Physical Verification | Assura / Innovus | DRC, LVS, and STA checks. |
+| GDSII Generation | Cadence Innovus | Final layout export. |
 
 ---
 
-## 📊 Design Metrics Comparison
+### Design Metrics Comparison
 
-| Parameter | 90 nm Technology | 180 nm Technology |
-|------------|------------------|-------------------|
+| Parameter | 90 nm | 180 nm |
+|------------|-------|--------|
 | Total Area (μm²) | 820 | 2430 |
 | Critical Path Delay (ns) | 5.92 | 6.58 |
-| Maximum Frequency (MHz) | 169 | 152 |
+| Max Frequency (MHz) | 169 | 152 |
 | Total Power (mW) | 0.071 | 0.223 |
-| DRC / LVS Status | ✅ Clean | ✅ Clean |
+| DRC/LVS Status | ✅ Clean | ✅ Clean |
 
 ---
 
-## 🔋 Power Analysis
+### Power Analysis
 
 | Power Type | 90 nm (μW) | 180 nm (μW) |
 |-------------|-------------|-------------|
@@ -132,98 +134,99 @@ This ensures **self-clocking** and **synchronization** between the transmitter a
 
 ---
 
-## 🧪 Simulation and Verification
+### Simulation and Verification
 
-| Test Case | Input Data | Expected Output | Result |
-|------------|-------------|----------------|---------|
+| Test Case | Input | Expected Output | Result |
+|------------|--------|----------------|---------|
 | Test 1 | 10101010 | Correct Manchester pattern | ✅ PASS |
-| Test 2 | 11001100 | Decoded data matches input | ✅ PASS |
-| Test 3 | Random Stream | 100% Functional Accuracy | ✅ PASS |
+| Test 2 | 11001100 | Decoded equals input | ✅ PASS |
+| Test 3 | Random stream | 100% functional accuracy | ✅ PASS |
 
-### ➤ Verification Checks
-| Verification Type | Status | Description |
-|--------------------|---------|-------------|
-| Functional Simulation | ✅ Pass | Encoder–Decoder behavior validated with waveforms |
-| Timing Analysis | ✅ Clean | No setup or hold violations |
-| DRC | ✅ Pass | No design rule errors |
-| LVS | ✅ Pass | Layout matches schematic |
-| STA | ✅ Pass | Meets required timing constraints |
+#### Verification Summary
 
----
-
-## 🧱 Layout Results
-
-| Technology Node | Layout Status | Description |
-|------------------|---------------|-------------|
-| 180 nm | ✅ Clean | Verified routing and floorplan |
-| 90 nm | ✅ Optimized | Compact placement and reduced delay |
-| GDSII Output | ✅ Generated | Ready for mask fabrication |
+| Type | Status | Description |
+|------|---------|-------------|
+| Functional Simulation | ✅ Pass | Verified with waveform. |
+| Timing Analysis | ✅ Clean | No setup/hold violations. |
+| DRC | ✅ Pass | No physical errors. |
+| LVS | ✅ Pass | Layout matches schematic. |
+| STA | ✅ Pass | Meets all timing. |
 
 ---
 
-## 🧰 Tools and Technologies Used
+### Layout Results
+
+| Technology | Status | Description |
+|-------------|---------|-------------|
+| 180 nm | ✅ Clean | Verified routing and floorplan. |
+| 90 nm | ✅ Optimized | Compact layout with lower delay/power. |
+| GDSII Output | ✅ Generated | Final mask-level file ready. |
+
+---
+
+### Tools and Technologies Used
 
 | Category | Tool / Software |
 |-----------|----------------|
 | HDL Design | Verilog HDL |
-| Simulation | Xilinx Vivado / ModelSim |
+| Simulation | Vivado / ModelSim |
 | Synthesis | Cadence Genus |
 | Place & Route | Cadence Innovus |
 | Verification | DRC, LVS, STA |
-| Technology Nodes | 90 nm and 180 nm CMOS |
+| Tech Nodes | 90 nm and 180 nm CMOS |
 
 ---
 
-## 🚀 Execution Steps
+### Execution Steps
 
-| Step | Command / Description |
-|------|------------------------|
-| **1. Clone Repository** | `git clone https://github.com/<your-username>/manchester-encoder-decoder.git` |
-| **2. RTL Simulation** | `vivado -mode batch -source sim_manchester.tcl` |
-| **3. Logic Synthesis** | `genus -f run_synthesis.tcl` |
-| **4. Physical Design** | `innovus -init run_innovus.tcl` |
-| **5. Signoff Checks** | Perform DRC, LVS, and STA verification. |
+| Step | Command / Action |
+|------|-------------------|
+| Clone Repository | `git clone https://github.com/<your-username>/manchester-encoder-decoder.git` |
+| RTL Simulation | `vivado -mode batch -source sim_manchester.tcl` |
+| Logic Synthesis | `genus -f run_synthesis.tcl` |
+| Physical Design | `innovus -init run_innovus.tcl` |
+| Signoff | Run DRC, LVS, STA before GDS export. |
 
 ---
 
-## 🎓 Academic Project Details
+### Academic Project Details
 
 | Field | Description |
 |--------|-------------|
-| **Project Title** | Manchester Encoder–Decoder (RTL to GDSII) |
+| **Title** | Manchester Encoder–Decoder (RTL to GDSII) |
 | **Course** | VLSI System Design Practice |
 | **Guide** | Dr. P. Ranga Babu |
-| **Department** | Electronics and Communication Engineering |
-| **Institution** | Indian Institute of Information Technology, Design and Manufacturing (IIITDM), Kurnool |
-| **Academic Year** | 2025–2026 |
+| **Department** | ECE |
+| **Institution** | IIITDM Kurnool |
+| **Year** | 2025 – 2026 |
 
 ---
 
-## 🎯 Learning Outcomes
+### Learning Outcomes
 
-| Learning Aspect | Description |
-|------------------|-------------|
-| ASIC Design Flow | Understood complete flow from RTL to GDSII. |
-| HDL Programming | Designed and simulated using Verilog HDL. |
-| Synthesis Knowledge | Implemented logic synthesis and technology mapping. |
-| Physical Design | Learned floorplanning, placement, and routing. |
-| Verification Skills | Performed DRC, LVS, and STA for signoff. |
-| Optimization | Analyzed power, area, and timing trade-offs. |
+| Aspect | Description |
+|---------|-------------|
+| ASIC Flow | Understood full flow from RTL to GDSII. |
+| HDL Skills | Implemented and tested Verilog modules. |
+| Synthesis | Learned optimization of area, delay, power. |
+| Physical Design | Gained experience in floorplan, placement, routing. |
+| Verification | Performed DRC, LVS, STA successfully. |
+| Comparison | Analyzed 90 nm vs 180 nm performance. |
 
 ---
 
-## 📚 References
+### References
 
-| No. | Reference |
-|-----|------------|
-| 1 | W. Stallings, *Data and Computer Communications*, 10th Edition, Pearson. |
+| No. | Source |
+|-----|--------|
+| 1 | W. Stallings, *Data and Computer Communications*, 10th Ed., Pearson. |
 | 2 | D. Harris & S. Harris, *Digital Design and Computer Architecture*, Elsevier. |
-| 3 | NPTEL Course, *Digital VLSI Design* by Prof. Indranil Haldar, IIT Kharagpur. |
+| 3 | NPTEL, *Digital VLSI Design*, IIT Kharagpur. |
 | 4 | ElProCus, *Manchester Encoding and Decoding – Working, Circuit, and Applications*. |
 
 ---
 
-## 🧑‍💻 Developer Information
+### Developer Information
 
 | Field | Details |
 |-------|----------|
@@ -236,24 +239,26 @@ This ensures **self-clocking** and **synchronization** between the transmitter a
 
 ---
 
-## 📝 License
+### License
 
 | Type | Description |
 |------|-------------|
-| **MIT License** | Permission is granted to use, copy, modify, and distribute this project with attribution. |
+| **MIT License** | Free to use, modify, distribute with attribution. |
 | **Copyright** | © 2025 Abhi Pragna |
 
 ---
 
-## 🌟 Acknowledgments
+### Acknowledgments
 
 | Contributor | Role |
 |--------------|------|
 | **Dr. P. Ranga Babu** | Project Guide, IIITDM Kurnool |
-| **IIITDM Kurnool** | Provided lab infrastructure and EDA tool access |
-| **Cadence Design Systems** | EDA support for synthesis and layout |
-| **Open Source Communities** | Learning materials and reference designs |
+| **IIITDM Kurnool** | Lab facilities and EDA support |
+| **Cadence Design Systems** | Tools for synthesis & layout |
+| **Open Source Communities** | Reference and learning resources |
 
 ---
+
+⭐ *If you found this project helpful, give it a star!*
 
 ⭐ *If you found this project helpful, don’t forget to star the repository!*
