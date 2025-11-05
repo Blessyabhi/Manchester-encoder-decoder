@@ -578,39 +578,24 @@ Result: ✅ PASS
 
 ## 🧱 Physical Layout
 
-### 🧩 180 nm Implementation
 
-#### 🧾 No Layout (Pre-Layout View)
-![180nm No Layout](path/to/nolayout_180nm.png)
-
-*Pre-layout synthesized schematic representation of the 180 nm Manchester Encoder/Decoder before place & route.*
-
-#### 🗺️ 2D Layout View
-![180nm Layout 2D](path/to/layout_180nm.png)
-
-*180 nm technology — 2D layout view showing complete routed design with standard cell placement.*
-
-#### 🧱 3D Layout View
-![180nm Layout 3D](path/to/layout_180nm_3d.png)
-
-*180 nm technology — 3D perspective view illustrating multi-layer metal interconnect stack.*
 
 ---
 
 ### ⚙️ 90 nm Implementation
 
 #### 🧾 No Layout (Pre-Layout View)
-![90nm No Layout](path/to/nolayout_90nm.png)
+![90nm No Layout](path/to/schematic.png)
 
 *Pre-layout synthesized schematic representation of the 90 nm Manchester Encoder/Decoder prior to physical implementation.*
 
 #### 🗺️ 2D Layout View
-![90nm Layout 2D](path/to/layout_90nm.png)
+![90nm Layout 2D](path/to/layout_overall.png)
 
 *90 nm technology — 2D layout view demonstrating optimized density and advanced routing.*
 
 #### 🧱 3D Layout View
-![90nm Layout 3D](path/to/layout_90nm_3d.png)
+![90nm Layout 3D](path/to/layout.png)
 
 *90 nm technology — 3D perspective view showcasing improved layout efficiency and compact design.*
 
